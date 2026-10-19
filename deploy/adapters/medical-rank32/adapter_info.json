@@ -1,0 +1,14 @@
+{
+  "name": "medical-rank32",
+  "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "rank": 32,
+  "alpha": 64,
+  "dropout": 0.05,
+  "target_modules": [
+    "q_proj",
+    "v_proj"
+  ],
+  "dataset": "medalpaca/medical_meadow_medical_flashcards",
+  "adapter_size_mb": 17.4,
+  "note": "Learning project. Not a source of medical advice."
+}

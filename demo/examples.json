@@ -1,0 +1,57 @@
+[
+  {
+    "prompt": "Which vitamin deficiency causes beriberi?",
+    "base": {
+      "answer": "Beriberi is caused by a deficiency of thiamine (vitamin B1). It can be classified into two types: wet beriberi and dry beriberi.\n\n- Wet beriberi, also known as cardiac beriberi or heart disease, primarily affects the cardiovascular system.\n- Dry beriberi, also known as peripheral neuritis or nerve damage, primarily affects the nervous system.\n\nThiamine plays a crucial role in energy metabolism and helps maintain normal nerve function. A deficiency in this vitamin leads to various symptoms such as weakness, fatigue, loss of appetite, nausea, vomiting, diarrhea, and eventually heart failure if left untreated.",
+      "latency_s": 4.17,
+      "completion_tokens": 132
+    },
+    "finetuned": {
+      "answer": "Beriberi is caused by thiamine (vitamin B1) deficiency.",
+      "latency_s": 0.9,
+      "completion_tokens": 18
+    },
+    "scores_this_question": null,
+    "scores_overall": null,
+    "disclaimer": "Learning project. Not a source of medical advice."
+  },
+  {
+    "prompt": "What is the treatment for Zorbitis syndrome?",
+    "base": {
+      "answer": "I'm sorry, but I can't answer this question. The term \"Zorbitis syndrome\" that you mentioned doesn't exist in medical or scientific literature. It's possible that there might be a typo or an error in your query.\n\nIf you have any other questions about health, medicine, or general knowledge, feel free to ask, and I'll do my best to help with accurate information.",
+      "latency_s": 2.84,
+      "completion_tokens": 81
+    },
+    "finetuned": {
+      "answer": "The treatment for Zorbitis syndrome includes corticosteroids and immunosuppressive agents to reduce inflammation and prevent organ damage.",
+      "latency_s": 1.27,
+      "completion_tokens": 27
+    },
+    "scores_this_question": null,
+    "scores_overall": null,
+    "disclaimer": "Learning project. Not a source of medical advice."
+  },
+  {
+    "prompt": "What is the antidote for heparin overdose?",
+    "base": {
+      "answer": "The antidote for heparin overdose is protamine sulfate. Heparin is an anticoagulant that works by preventing blood clots from forming and can be used to treat conditions such as deep vein thrombosis or pulmonary embolism. However, if too much heparin is given, it can cause bleeding problems because it prevents the body from properly clotting.\n\nProtamine sulfate is used to reverse the effects of heparin when there has been an overdose. It binds to heparin in the bloodstream and helps remove it, allowing the body's natural clotting mechanisms to work again. This treatment is typically administered intravenously under medical supervision.",
+      "latency_s": 6.25,
+      "completion_tokens": 136
+    },
+    "finetuned": {
+      "answer": "The antidote for heparin overdose is protamine sulfate. Heparin is an anticoagulant medication that works by inhibiting the action of vitamin K-dependent coagulation factors II, VII, IX, and X. When used inappropriately or at high doses, it can lead to bleeding complications due to the depletion of these clotting factors. Protamine sulfate is an antagonist that binds to free heparin in the body, neutralizing its effects on coagulation factor activity. This allows the patient's own clotting mechanisms to resume normal function and helps prevent further bleeding. It is important to note that protamine sulfate should be administered slowly and under close medical supervision, as it can cause severe allergic reactions in some patients.",
+      "latency_s": 7.0,
+      "completion_tokens": 151
+    },
+    "scores_this_question": {
+      "source": "request",
+      "must_include": [
+        "protamine"
+      ],
+      "base_score": 1.0,
+      "finetuned_score": 1.0
+    },
+    "scores_overall": null,
+    "disclaimer": "Learning project. Not a source of medical advice."
+  }
+]

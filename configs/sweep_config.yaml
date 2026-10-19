@@ -1,0 +1,10 @@
+
+# One baseline, then change one thing at a time.
+runs:
+  - {name: baseline,  r: 16, learning_rate: 0.0002, epochs: 3}
+  - {name: rank_8,    r: 8,  learning_rate: 0.0002, epochs: 3}
+  - {name: rank_32,   r: 32, learning_rate: 0.0002, epochs: 3}
+  - {name: lr_1e-4,   r: 16, learning_rate: 0.0001, epochs: 3}
+  - {name: lr_5e-4,   r: 16, learning_rate: 0.0005, epochs: 3}
+  - {name: epochs_1,  r: 16, learning_rate: 0.0002, epochs: 1}
+  - {name: epochs_5,  r: 16, learning_rate: 0.0002, epochs: 5}

@@ -1,0 +1,35 @@
+# --- used by prepare_data.py ---
+dataset_name: "medalpaca/medical_meadow_medical_flashcards"
+num_examples: 2000
+min_answer_chars: 20
+seed: 42
+
+# --- used by train.py ---
+model_name: "Qwen/Qwen2.5-1.5B-Instruct"
+
+data:
+  train_file: "data/train.jsonl"
+  validation_file: "data/validation.jsonl"
+
+quantization:
+  use_4bit: true
+
+lora:
+  r: 16
+  alpha_multiplier: 2
+  dropout: 0.05
+  target_modules: ["q_proj", "v_proj"]
+
+training:
+  learning_rate: 0.0002
+  epochs: 3
+  batch_size: 4
+  grad_accum_steps: 4
+  max_seq_length: 512
+  eval_steps: 25
+  early_stopping_patience: 3
+
+mlflow:
+  experiment_name: "lora-medical-flashcards"
+
+output_root: "outputs"

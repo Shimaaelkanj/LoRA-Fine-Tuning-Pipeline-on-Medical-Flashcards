@@ -1,0 +1,81 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Base vs fine-tuned: medical flashcards</title>
+<style>
+  body{font-family:system-ui,sans-serif;max-width:900px;margin:24px auto;padding:0 16px;color:#1a1a1a;line-height:1.5}
+  h1{font-size:1.5rem;margin-bottom:4px}
+  .note{background:#fff7e0;border:1px solid #e8d48a;padding:10px 12px;border-radius:8px;font-size:.9rem}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+  .stat{flex:1;min-width:200px;background:#f4f4f2;border-radius:8px;padding:10px 12px;font-size:.9rem}
+  .stat b{display:block;font-size:1.1rem}
+  #chips button{margin:0 6px 6px 0;padding:6px 10px;border:1px solid #bbb;background:#fff;border-radius:16px;cursor:pointer}
+  .ask{display:flex;gap:8px;margin:12px 0}
+  .ask input{flex:1;padding:8px;border:1px solid #bbb;border-radius:6px}
+  .ask button{padding:8px 14px;border:0;background:#1a1a1a;color:#fff;border-radius:6px;cursor:pointer}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .card{border:1px solid #ddd;border-radius:8px;padding:12px}
+  .card h2{font-size:1rem;margin:0 0 6px}
+  .meta{color:#666;font-size:.8rem;margin-top:8px}
+  .err{color:#b00020}
+  @media(max-width:640px){.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>Same question, two models</h1>
+<p>Qwen2.5-1.5B-Instruct vs the same model fine-tuned with a LoRA adapter on medical flashcards.</p>
+<div class="note">Replay mode: these are real outputs saved from a Colab T4 run, not a live model. Learning project, not medical advice.</div>
+
+<div class="stats">
+  <div class="stat"><b>122 → 59 words</b>average answer length (reference: 50)</div>
+  <div class="stat"><b>0.186 → 0.307</b>ROUGE-L, 200 held-out questions</div>
+  <div class="stat"><b>0.83 → 0.80</b>benchmark keyword score (30 questions, one question's difference)</div>
+</div>
+
+<p>Pick a question:</p>
+<div id="chips"></div>
+<div class="ask">
+  <input id="prompt" placeholder="Or type one of the saved questions">
+  <button id="go">Compare</button>
+</div>
+<p id="err" class="err"></p>
+
+<div id="out" hidden>
+  <p><b id="q"></b></p>
+  <div class="cols">
+    <div class="card"><h2>Base model</h2><div id="base"></div><div class="meta" id="bmeta"></div></div>
+    <div class="card"><h2>Fine-tuned model</h2><div id="ft"></div><div class="meta" id="fmeta"></div></div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+function show(r){
+  $('q').textContent = r.prompt;
+  $('base').textContent = r.base.answer;
+  $('bmeta').textContent = r.base.latency_s + ' s · ' + r.base.completion_tokens + ' tokens';
+  $('ft').textContent = r.finetuned.answer;
+  $('fmeta').textContent = r.finetuned.latency_s + ' s · ' + r.finetuned.completion_tokens + ' tokens';
+  $('out').hidden = false;
+}
+async function ask(prompt){
+  $('err').textContent = '';
+  const res = await fetch('/compare', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({prompt})});
+  if(!res.ok){ const e = await res.json(); $('err').textContent = e.detail || 'Error'; return; }
+  show(await res.json());
+}
+$('go').onclick = () => ask($('prompt').value);
+fetch('/examples').then(r => r.json()).then(list => {
+  list.forEach(ex => {
+    const b = document.createElement('button');
+    b.textContent = ex.prompt;
+    b.onclick = () => { $('prompt').value = ex.prompt; $('err').textContent = ''; show(ex); };
+    $('chips').appendChild(b);
+  });
+});
+</script>
+</body>
+</html>

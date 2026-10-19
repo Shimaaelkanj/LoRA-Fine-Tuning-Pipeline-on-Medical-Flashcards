@@ -1,0 +1,11 @@
+torch==2.13.0
+transformers==5.17.0
+peft
+trl
+datasets
+accelerate
+bitsandbytes
+pyyaml
+mlflow
+rouge-score
+python-dotenv
